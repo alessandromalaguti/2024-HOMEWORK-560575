@@ -15,27 +15,29 @@ public class LabirintoTest {
 
 	@Before
 	public void setUp() {
-		labirinto = new Labirinto();
-		labirinto.creaStanze();
 		atrio = new Stanza("atrio");
-		N11 = new Stanza("N11");
+		N11 = new Stanza("n11");
+		labirinto =new LabirintoBuilder().addStanzaIniziale("atrio").addStanza(N11.getNome()).addStanzaVincente("laboratorio")
+    			.addAdiacenza("atrio", "laboratorio", "sud").addAdiacenza( "laboratorio", "atrio","nord").getLabirinto();
+		
+		
 	}
 
 
 	@Test
 	public void testGetStanzaVincente() {
-		assertEquals("Biblioteca", labirinto.getStanzaFinale().getNome());
+		assertEquals("laboratorio", labirinto.getStanzaFinale().getNome());
 	}
 
 
 	@Test
 	public void testSetStanzaCorrente() {
-		labirinto.setStanzaIniziale(N11);
-		assertEquals(N11, labirinto.getStanzaIniziale());
+		labirinto.setStanzaCorrente(N11);
+		assertEquals(N11, labirinto.getStanzaCorrente());
 	}
 	@Test
 	public void testGetStanzaCorrente() {
-		assertEquals("Atrio", labirinto.getStanzaIniziale().getNome());
+		assertEquals("atrio", labirinto.getStanzaCorrente().getNome());
 	}
 
 }

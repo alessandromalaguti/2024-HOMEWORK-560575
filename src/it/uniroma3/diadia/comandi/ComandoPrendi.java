@@ -22,10 +22,13 @@ public ComandoPrendi(IO io,String nomeAttrezzo) {
 		if (partita.getStanzaCorrente().hasAttrezzo(nome)) {
 			Attrezzo attrezzoDaPrendere = partita.getStanzaCorrente().getAttrezzo(nome);
 
-			partita.getGiocatore().getBorsa().addAttrezzo(attrezzoDaPrendere);
+			if(partita.getGiocatore().getBorsa().addAttrezzo(attrezzoDaPrendere)) {
 			partita.getStanzaCorrente().removeAttrezzo(attrezzoDaPrendere);
 
 			io.mostraMessaggio("Attrezzo preso!");
+			}
+			else
+				io.mostraMessaggio("Troppo pesante per entrare nella borsa!");
 		} else
 			io.mostraMessaggio("L'attrezzo non è presente nella stanza");
 

@@ -14,16 +14,16 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class Partita {
 
-	private Stanza stanzaCorrente;
+	
 	private boolean finita;
 	private Giocatore giocatore;
 	private Labirinto labirinto;
 	
-	public Partita(){
-		labirinto = new Labirinto();
+	public Partita(Labirinto labirinto){
+		this.labirinto=labirinto;
 		this.finita = false;
 		giocatore = new Giocatore();
-		this.stanzaCorrente = labirinto.getStanzaIniziale();
+		
 	}
 
     /**
@@ -33,11 +33,12 @@ public class Partita {
 
 
 	public void setStanzaCorrente(Stanza stanzaCorrente) {
-		this.stanzaCorrente = stanzaCorrente;
+		
+		labirinto.setStanzaCorrente(stanzaCorrente);
 	}
 
 	public Stanza getStanzaCorrente() {
-		return this.stanzaCorrente;
+		return labirinto.getStanzaCorrente();
 	}
 	
 

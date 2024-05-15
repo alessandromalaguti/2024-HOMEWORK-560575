@@ -21,6 +21,7 @@ public ComandoGuarda(IO io) {
 	public void esegui(Partita partita) {
 		partita.getStanzaCorrente().getDescrizione(io);
 		io.mostraMessaggio(partita.getGiocatore().getBorsa().toString());
+		io.mostraMessaggio("Hai ancora: "+partita.getGiocatore().getCfu()+" CFU");
 		
 
 	}

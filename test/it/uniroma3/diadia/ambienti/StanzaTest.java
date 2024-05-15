@@ -28,8 +28,8 @@ public class StanzaTest {
 	
 	@Test
 	public void testAddAttrezzo() {
-		
-		assertTrue(stanza1.addAttrezzo(osso));
+		stanza1.addAttrezzo(osso);
+		assertTrue(stanza1.hasAttrezzo(osso.getNome()));
 	}
 	
 

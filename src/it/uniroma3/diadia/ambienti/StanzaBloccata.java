@@ -15,35 +15,36 @@ public StanzaBloccata(String nome, String Attrezzo, String direzione) {
 
 @Override
 public Stanza getStanzaAdiacente(String dir) {
-	if(dir==direzioneBloccata) {
-		if(!super.hasAttrezzo(attrezzoSblocco))
-			return this;
+	if(direzioneBloccata.equals(dir) && !super.hasAttrezzo(attrezzoSblocco))
+		
+		return this;
+	else
 		return super.getStanzaAdiacente(dir);
-	}
-	
-	return super.getStanzaAdiacente(dir);
+
+
+
 	
 }
 @Override
+
 public boolean getDescrizione(IO io) {
+	super.getDescrizione(io);
+	if(!super.hasAttrezzo(this.attrezzoSblocco)) {
+		io.mostraMessaggio("La direzione " + this.direzioneBloccata + " é bloccata! Trova una chiave per aprirla");
+		
 	
-	if(!(super.hasAttrezzo(this.attrezzoSblocco))) {
-		io.mostraMessaggio("Uscite:");
-		for(int i=0; i< super.getNumeroStanzeAdiacenti();i++) {
-			if(super.getDirezione(i)!=direzioneBloccata) {
-				
-				io.mostraMessaggio(getDirezione(i));
-				
-			}else {
-				io.mostraMessaggio("La direzione " + this.direzioneBloccata + " è bloccata");
-			}
-		}
 	}
-	else {
-		super.getDescrizione(io);
-		return true;
-	}
+	
+	
 		
 	return false;
 }
+
+	
+	
+	
+	
+
+
+
 }

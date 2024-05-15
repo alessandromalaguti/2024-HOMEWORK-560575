@@ -15,13 +15,13 @@ public class StanzaBuia extends Stanza {
 
 	@Override
 	public boolean getDescrizione(IO io) {
-		boolean Luce = false;
+		
 		if (hasAttrezzo(AttrezzoLuce)) {
 			super.getDescrizione(io);
-			Luce = true;
+			return true;
 		}
-		super.getDescrizione(io);
+		
 		io.mostraMessaggio("Qui c'è un buio pesto...");
-        return Luce;
+        return false;
 	}
 }

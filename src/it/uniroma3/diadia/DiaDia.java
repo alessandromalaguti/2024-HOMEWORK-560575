@@ -1,5 +1,7 @@
 package it.uniroma3.diadia;
 
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
@@ -27,14 +29,20 @@ public class DiaDia {
 			+ "o regalarli se pensi che possano ingraziarti qualcuno.\n\n"
 			+ "Per conoscere le istruzioni usa il comando 'aiuto'.";
 
-	
-
 	private Partita partita;
 	private IO io;
 
+	public DiaDia(Labirinto labirinto, IO console) {
+		this.io = console;
+		this.partita = new Partita(labirinto);
+		
+	}
 	public DiaDia(IO console) {
 		this.io = console;
-		this.partita = new Partita();
+		Labirinto labirinto = new LabirintoBuilder().addStanzaIniziale("atrio").addStanzaVincente("laboratorio")
+    			.addAdiacenza("atrio", "laboratorio", "sud").addAdiacenza( "laboratorio", "atrio","nord").getLabirinto();
+	  this.partita= new Partita(labirinto);
+	
 	}
 
 	public void gioca() {
@@ -78,9 +86,7 @@ public class DiaDia {
 	 * Cerca di andare in una direzione. Se c'e' una stanza ci entra e ne stampa il
 	 * nome, altrimenti stampa un messaggio di errore
 	 */
-	
 
-	
 	/**
 	 * Comando "Fine".
 	 */
@@ -91,7 +97,21 @@ public class DiaDia {
 
 	public static void main(String[] argc) {
 		IO io = new IOConsole();
-		DiaDia gioco = new DiaDia(io);
+		Labirinto labirinto = new LabirintoBuilder().addStanzaIniziale("atrio").addAttrezzo("lanterna", 2)
+				.addStanza("laboratorio").addAttrezzo("chiave", 1).addAdiacenza("atrio", "laboratorio", "sud")
+				.addAdiacenza("laboratorio", "atrio", "nord").addStanzaBuia("sottoscala", "lanterna")
+				.addAdiacenza("laboratorio", "sottoscala", "ovest").addAdiacenza("sottoscala", "laboratorio", "est")
+				.addStanza("cortile").addAdiacenza("laboratorio", "cortile", "est")
+				.addAdiacenza("cortile", "laboratorio", "ovest").addStanzaMagica("LabIA", 3)
+				.addAdiacenza("cortile", "LabIA", "sud").addAdiacenza("LabIA", "cortile", "nord")
+				.addStanzaBloccata("presidenza", "chiave", "sud").addAdiacenza("laboratorio", "presidenza", "sud")
+				.addAdiacenza("presidenza", "laboratorio", "nord").addStanza("corridoio").addAttrezzo("lente", 1)
+				.addAdiacenza("corridoio", "sottoscala", "nord").addAdiacenza("sottoscala", "corridoio", "sud")
+				.addAdiacenza("corridoio", "presidenza", "est").addAdiacenza("presidenza", "corridoio", "ovest")
+				.addAdiacenza("LabIA", "presidenza", "ovest").addAdiacenza("presidenza", "LabIA", "est")
+				.addStanzaVincente("aula magna").addAdiacenza("presidenza", "aula magna", "sud")
+				.addAdiacenza("aula magna", "presidenza", "nord").getLabirinto();
+		DiaDia gioco = new DiaDia(labirinto, io);
 		gioco.gioca();
 	}
 }
